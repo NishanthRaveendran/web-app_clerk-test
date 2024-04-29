@@ -18,7 +18,7 @@ export default async function handler(req, res) {
         console.log("Raw webhook payload:", rawData);
 
         // Now parse the JSON data
-        const eventData = JSON.parse(rawData);
+        const eventData = JSON.parse(rawData).data;
 
         if (eventData.type === 'user.created') {
             const { db } = await connectToDatabase();
