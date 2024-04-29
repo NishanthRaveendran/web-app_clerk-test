@@ -1,6 +1,8 @@
 import connectToDatabase from '../../lib/mongodb';
 
 export default async function handler(req, res) {
+    console.log("Webhook payload:", JSON.stringify(req.body));
+
     if (req.method === 'POST') {
         const { db } = await connectToDatabase();
         const eventData = req.body;
