@@ -18,20 +18,20 @@ export default async function handler(req, res) {
         console.log("Raw webhook payload:", rawData);
 
         // Now parse the JSON data
-        const eventData = JSON.parse(rawData).data;
+        const eventData = JSON.parse(rawData);
 
         if (eventData.type === 'user.created') {
             const { db } = await connectToDatabase();
 
-            const email = eventData.email_addresses && eventData.email_addresses.length > 0
-                          ? eventData.email_addresses[0].emailAddress
+            const email = eventData.data.email_addresses && eventData.data.email_addresses.length > 0
+                          ? eventData.data.email_addresses[0].emailAddress
                           : 'default@email.com'; // Fallback if no email is present
 
             const userData = {
-                clerkId: eventData.id,
-                username: eventData.username || 'defaultUsername',
+                clerkId: eventData.data.id,
+                username: eventData.data.username || 'defaultUsername',
                 email: email,
-                createdAt: eventData.last_active_at,
+                createdAt: eventData.data.last_active_at,
             };
 
             console.log("Inserting user data:", userData);
