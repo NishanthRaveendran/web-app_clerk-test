@@ -24,12 +24,12 @@ export default async function handler(req, res) {
             const { db } = await connectToDatabase();
 
             const email = eventData.data.email_addresses && eventData.data.email_addresses.length > 0
-                          ? eventData.data.email_addresses[0].emailAddress
+                          ? eventData.data.email_addresses[0].email_address
                           : 'default@email.com'; // Fallback if no email is present
 
             const userData = {
                 clerkId: eventData.data.id,
-                username: eventData.data.username || 'defaultUsername',
+                // username: eventData.data.username || 'defaultUsername',
                 email: email,
                 createdAt: eventData.data.last_active_at,
             };
